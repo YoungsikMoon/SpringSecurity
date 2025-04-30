@@ -13,10 +13,10 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
     http.authorizeHttpRequests((auth) -> auth
-            .requestMatchers("/", "/login").permitAll()
-            .requestMatchers("/admin").hasRole("ADMIN")
-            .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-            .anyRequest().authenticated()
+            .requestMatchers("/", "/login").permitAll() //모든 유저
+            .requestMatchers("/admin").hasRole("ADMIN") // 어드민만
+            .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER") //어드민 또는 유저만
+            .anyRequest().authenticated() // 나머지 ,로그인한 사용자만 접근하도록
         );
     return http.build();
   }
