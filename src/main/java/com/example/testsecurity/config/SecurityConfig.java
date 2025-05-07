@@ -28,7 +28,8 @@ public class SecurityConfig {
         );
 
     http
-        .formLogin((auth) -> auth.loginPage("/login")
+        .formLogin((auth) -> auth
+            .loginPage("/login")
             .loginProcessingUrl("/loginProc")
             .permitAll()
         );
@@ -36,6 +37,14 @@ public class SecurityConfig {
     http
         .csrf((auth) -> auth.disable());
 
+    http
+        .sessionManagement((auth) -> auth
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(true));
+
+    http
+        .sessionManagement((auth) -> auth
+            .sessionFixation().changeSessionId());
 
     return http.build();
   }
